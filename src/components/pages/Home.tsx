@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet';
 import { Container } from 'semantic-ui-react';
 
 import DefaultList from 'containers/organisms/DefaultList';
+import LnkitemList from 'components/organisms/LinkItemList';
+import LinkItemPost from 'components/organisms/LinkItemPost';
 import './Home.css';
 
 const Home: FC = () => (
@@ -17,6 +19,11 @@ const Home: FC = () => (
       <p>サンプルデータ</p>
     </Container>
     <DefaultList />
+    <Container className="summary">
+      <h1>GraphQLデータ</h1>
+    </Container>
+    <LinkItemPost />
+    <LnkitemList />
   </>
 );
 

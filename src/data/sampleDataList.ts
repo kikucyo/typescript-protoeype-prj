@@ -36,3 +36,26 @@ export const dataList: DataTypeDict = {
     ],
   },
 };
+
+export type Link = {
+  id: string;
+  url: string;
+  description: string;
+};
+
+export type LinkList = {
+  linkList: Link[];
+};
+
+export const samplelinkList: Link[] = [
+  {
+    id: '1',
+    description: 'Prisma gives you a powerful database toolkit 😎',
+    url: 'https://prisma.io',
+  },
+  {
+    id: '2',
+    description: 'The best GraphQL client',
+    url: 'https://www.apollographql.com/docs/react/',
+  },
+];
