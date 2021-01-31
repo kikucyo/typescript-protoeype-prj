@@ -50,12 +50,7 @@ const LinkItemPost: FC = () => {
       url: 'test',
       description: 'descriptionTest',
     },
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-    // update(cache, data) {
-    //   console.log(data);
 
-    //   console.log(cache);
-    // },
     update: (cache, { data }) => {
       if (data === undefined || data === null) {
         return;
@@ -81,9 +76,6 @@ const LinkItemPost: FC = () => {
           feed: newFeed,
         },
       });
-
-      console.log(feed);
-      console.log(data?.post.id);
     },
   });
 
