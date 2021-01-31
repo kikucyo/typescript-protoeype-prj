@@ -1,6 +1,20 @@
 import { FC } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Button, Form, Label } from 'semantic-ui-react';
+import { Link } from 'data/sampleDataList';
+import { FEED_QUERY } from './LinkItemList';
+
+interface FeedResult {
+  feed: Link[];
+}
+
+interface RegistedLink {
+  post: {
+    id: string;
+    url: string;
+    description: string;
+  };
+}
 
 const LinkItemPost: FC = () => {
   const POST_MUTATION = gql`
@@ -30,7 +44,7 @@ const LinkItemPost: FC = () => {
   //     });
   //   };
 
-  const [postMutation] = useMutation(POST_MUTATION, {
+  const [postMutation] = useMutation<RegistedLink>(POST_MUTATION, {
     variables: {
       group: 'A',
       url: 'test',
@@ -42,10 +56,34 @@ const LinkItemPost: FC = () => {
 
     //   console.log(cache);
     // },
-    update: (cache, data) => {
-      console.log(data);
+    update: (cache, { data }) => {
+      if (data === undefined || data === null) {
+        return;
+      }
 
-      console.log(cache);
+      const feed = cache.readQuery<FeedResult>({
+        query: FEED_QUERY,
+      });
+
+      const newLink: Link = {
+        id: data.post.id,
+        url: data.post.url,
+        description: data.post.description,
+      };
+      //   feed?.feed.push(newLink);
+      //   const newFeed = [];
+      const newFeed = feed?.feed.map((item) => item);
+
+      newFeed?.push(newLink);
+      cache.writeQuery({
+        query: FEED_QUERY,
+        data: {
+          feed: newFeed,
+        },
+      });
+
+      console.log(feed);
+      console.log(data?.post.id);
     },
   });
 

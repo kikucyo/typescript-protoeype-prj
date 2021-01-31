@@ -6,7 +6,7 @@ import LinkItem from './LinkItem';
 // type props = {
 //   linklist: Link[];
 // };
-const FEED_QUERY = gql`
+export const FEED_QUERY = gql`
   {
     feed {
       id

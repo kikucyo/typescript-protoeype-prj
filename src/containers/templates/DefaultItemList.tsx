@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { FC } from 'react';
 import { Navigate, useLocation, useParams } from 'react-router-dom';
 
