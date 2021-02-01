@@ -50,7 +50,6 @@ const LinkItemPost: FC = () => {
       url: 'test',
       description: 'descriptionTest',
     },
-
     update: (cache, { data }) => {
       if (data === undefined || data === null) {
         return;
@@ -59,6 +58,21 @@ const LinkItemPost: FC = () => {
       const feed = cache.readQuery<FeedResult>({
         query: FEED_QUERY,
       });
+
+      // const updatedLinks = feed?.feed.map((feedItem) => {
+      //   if (feedItem.id === data?.data.post.id) {
+      //       return {
+      //           ...feedLink,
+
+      //       }
+
+      //   }
+
+      // });
+
+      //   cache.writeQuery( {
+      //       query:FEED_QUERY,
+      //   })
 
       const newLink: Link = {
         id: data.post.id,
