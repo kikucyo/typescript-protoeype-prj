@@ -38,9 +38,9 @@ export const dataList: DataTypeDict = {
 };
 
 export type Link = {
-  id: string;
-  url: string;
-  description: string;
+  id: string | undefined;
+  url: string | undefined;
+  description: string | undefined;
 };
 
 export type LinkList = {

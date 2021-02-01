@@ -30,20 +30,6 @@ const LinkItemPost: FC = () => {
     }
   `;
 
-  //   const post = async () => {
-  //     // const postaction = useMutation(POST_MUTATION, {
-  //     //   variables: {
-  //     //     group: 'A',
-  //     //     url: 'test',
-  //     //     description: 'descriptionTest',
-  //     //   },
-  //     // });
-
-  //     await postMutation({
-  //       variables: { gropu: 'A', url: 'test', description: 'testdesc' },
-  //     });
-  //   };
-
   const [postMutation] = useMutation<RegistedLink>(POST_MUTATION, {
     variables: {
       group: 'A',
@@ -59,28 +45,12 @@ const LinkItemPost: FC = () => {
         query: FEED_QUERY,
       });
 
-      // const updatedLinks = feed?.feed.map((feedItem) => {
-      //   if (feedItem.id === data?.data.post.id) {
-      //       return {
-      //           ...feedLink,
-
-      //       }
-
-      //   }
-
-      // });
-
-      //   cache.writeQuery( {
-      //       query:FEED_QUERY,
-      //   })
-
       const newLink: Link = {
         id: data.post.id,
         url: data.post.url,
         description: data.post.description,
       };
-      //   feed?.feed.push(newLink);
-      //   const newFeed = [];
+
       const newFeed = feed?.feed.map((item) => item);
 
       newFeed?.push(newLink);
@@ -109,11 +79,6 @@ const LinkItemPost: FC = () => {
         onClick={async (e) => {
           e.preventDefault();
           await postMutation();
-          //   const promise = postMutation();
-
-          //   Promise.all([promise]).then(() => {
-          //     alert('test');
-          //   });
         }}
       >
         Submit
