@@ -36,37 +36,34 @@ interface NewLinkResult {
 const LinkItemList: FC = () => {
   const { loading, data, error } = useQuery<FeedResult>(FEED_QUERY);
 
-  const subscriptionResult = useSubscription<NewLinkResult>(
-    NEW_LINKS_SUBSCRIPTION,
-    {
-      onSubscriptionData: ({ client, subscriptionData }) => {
-        const feed = client.cache.readQuery<FeedResult>({
-          query: FEED_QUERY,
-        });
+  useSubscription<NewLinkResult>(NEW_LINKS_SUBSCRIPTION, {
+    onSubscriptionData: ({ client, subscriptionData }) => {
+      const feed = client.cache.readQuery<FeedResult>({
+        query: FEED_QUERY,
+      });
 
-        const newLink: Link = {
-          id: subscriptionData.data?.feed.id,
-          url: subscriptionData.data?.feed.url,
-          description: subscriptionData.data?.feed.description,
-        };
+      const newLink: Link = {
+        id: subscriptionData.data?.feed.id,
+        url: subscriptionData.data?.feed.url,
+        description: subscriptionData.data?.feed.description,
+      };
 
-        const newFeed = feed?.feed.map((item) => item);
+      const newFeed = feed?.feed.map((item) => item);
 
-        newFeed?.push(newLink);
+      newFeed?.push(newLink);
 
-        client.cache.writeQuery({
-          query: FEED_QUERY,
-          data: {
-            feed: newFeed,
-          },
-        });
-      },
+      client.cache.writeQuery({
+        query: FEED_QUERY,
+        data: {
+          feed: newFeed,
+        },
+      });
     },
-  );
+  });
 
   return (
     <>
-      <h1> Subscribed!!!</h1>
+      {/* <h1> Subscribed!!!</h1>
       <div>
         {subscriptionResult.loading ? (
           <div>loading...</div>
@@ -76,7 +73,7 @@ const LinkItemList: FC = () => {
             {subscriptionResult.data?.feed.description}
           </div>
         )}
-      </div>
+      </div> */}
       {error && <pre>{JSON.stringify(error, null, 2)}</pre>}
       {loading ? (
         <h1>loading...</h1>

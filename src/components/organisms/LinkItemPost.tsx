@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Button, Form, Label } from 'semantic-ui-react';
 import { Link } from 'data/sampleDataList';
@@ -17,6 +17,9 @@ interface RegistedLink {
 }
 
 const LinkItemPost: FC = () => {
+  const [url, setUrl] = useState('');
+  const [description, setDescription] = useState('');
+
   const POST_MUTATION = gql`
     mutation PostMutation(
       $group: String!
@@ -32,9 +35,9 @@ const LinkItemPost: FC = () => {
 
   const [postMutation] = useMutation<RegistedLink>(POST_MUTATION, {
     variables: {
-      group: 'A',
-      url: 'test',
-      description: 'descriptionTest',
+      group: 'B',
+      url,
+      description,
     },
     update: (cache, { data }) => {
       if (data === undefined || data === null) {
@@ -67,11 +70,19 @@ const LinkItemPost: FC = () => {
     <Form>
       <Form.Field>
         <Label>URL</Label>
-        <input placeholder="URL" />
+        <input
+          placeholder="URL"
+          onChange={(e) => setUrl(e.target.value)}
+          value={url}
+        />
       </Form.Field>
       <Form.Field>
         <Label>description</Label>
-        <input placeholder="description" />
+        <input
+          placeholder="description"
+          onChange={(e) => setDescription(e.target.value)}
+          value={description}
+        />
       </Form.Field>
 
       <Button
@@ -79,6 +90,8 @@ const LinkItemPost: FC = () => {
         onClick={async (e) => {
           e.preventDefault();
           await postMutation();
+          setUrl('');
+          setDescription('');
         }}
       >
         Submit
